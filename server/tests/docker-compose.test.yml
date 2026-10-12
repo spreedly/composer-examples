@@ -1,0 +1,57 @@
+# Test-only overlay for the sidecar harness. Not part of the demo.
+#
+# Points every sidecar at the fake Composer API instead of the real one, and supplies a
+# throwaway API key so the sidecars get past their "is the key configured?" guard.
+#
+# Run from `server/`:
+#   docker compose -f docker-compose.yml -f tests/docker-compose.test.yml up -d --build
+#   node tests/check-ip-derivation.mjs
+#   docker compose -f docker-compose.yml -f tests/docker-compose.test.yml down
+
+services:
+  fake-api:
+    image: node:22-slim
+    working_dir: /app
+    volumes:
+      - ./tests/fake-composer-api.mjs:/app/fake-composer-api.mjs:ro
+    command: node /app/fake-composer-api.mjs
+    ports:
+      - "3099:3099"
+
+  node-sidecar:
+    environment: &fake_api
+      DODGEBALL_API_URL: http://fake-api:3099
+      DODGEBALL_SECRET_KEY: harness-test-key
+      TRUSTED_PROXY_COUNT: ${TRUSTED_PROXY_COUNT:-0}
+    depends_on:
+      - fake-api
+
+  python-sidecar:
+    environment: *fake_api
+    depends_on:
+      - fake-api
+
+  php-sidecar:
+    environment: *fake_api
+    depends_on:
+      - fake-api
+
+  ruby-sidecar:
+    environment: *fake_api
+    depends_on:
+      - fake-api
+
+  go-sidecar:
+    environment: *fake_api
+    depends_on:
+      - fake-api
+
+  java-sidecar:
+    environment: *fake_api
+    depends_on:
+      - fake-api
+
+  dotnet-sidecar:
+    environment: *fake_api
+    depends_on:
+      - fake-api

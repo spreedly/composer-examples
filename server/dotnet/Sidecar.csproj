@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Spreedly.Composer.Examples</RootNamespace>
+    <AssemblyName>Sidecar</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Until ComposerSdk is on NuGet, reference the sibling SDK (see Dockerfile). -->
+    <ProjectReference Include="../../../composer-sdk-server-dotnet/src/ComposerSdk/ComposerSdk.csproj" />
+    <PackageReference Include="DotNetEnv" Version="3.1.1" />
+  </ItemGroup>
+
+</Project>
