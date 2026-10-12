@@ -8,7 +8,7 @@
 # let package.json's dependency resolve normally from the registry.
 
 # --- Stage 1: build the SDK from source ---------------------------------------
-FROM node:22-slim AS sdk-build
+FROM node:26-slim AS sdk-build
 WORKDIR /composer-sdk-server-node
 COPY --from=sdk package.json package-lock.json* ./
 RUN npm ci || npm install
@@ -20,7 +20,7 @@ COPY --from=sdk src ./src
 RUN npm run build:cjs && npm run build:types
 
 # --- Stage 2: the sidecar -----------------------------------------------------
-FROM node:22-slim AS app
+FROM node:26-slim AS app
 WORKDIR /app
 # package.json depends on the SDK via "file:../../../composer-sdk-server-node".
 # Inside the image /app/../../../ collapses to /, so the built SDK must live at
