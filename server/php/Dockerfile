@@ -7,7 +7,7 @@
 # Once the SDK is published, delete the SDK COPY below and let composer.json resolve
 # the package from Packagist normally.
 
-FROM php:8.2-cli-bookworm
+FROM php:8.5-cli-bookworm
 WORKDIR /app
 RUN apt-get update \
   && apt-get install -y --no-install-recommends git unzip \
