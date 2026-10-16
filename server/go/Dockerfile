@@ -8,7 +8,7 @@
 # Once the SDK is published, delete the SDK COPY below and remove the replace
 # directive from go.mod.
 
-FROM golang:1.26-bookworm AS build
+FROM golang:1.27-bookworm AS build
 WORKDIR /app
 # go.mod replace points at ../../../composer-sdk-server-go; inside the image
 # /app/../../../ collapses to /, so place the SDK source at /composer-sdk-server-go.
