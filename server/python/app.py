@@ -17,6 +17,8 @@ MISSING_CONFIG_MESSAGE = (
     "Missing DODGEBALL_SECRET_KEY; copy .env.example to .env "
     "(SPREEDLY_SECRET_KEY also accepted)"
 )
+# Failures are logged server-side; the client only gets this generic message.
+CHECKPOINT_ERROR_MESSAGE = "Checkpoint request failed"
 INVALID_CHECKPOINT_BODY = (
     "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string"
 )
@@ -120,14 +122,15 @@ def checkpoint():
 
     try:
         ip = get_ip()
-    except ValueError as e:
+    except ValueError:
+        app.logger.exception("client IP error")
         return (
             jsonify(
                 {
                     "success": False,
                     "status": "isError",
                     "verification": None,
-                    "errorMessage": str(e),
+                    "errorMessage": CHECKPOINT_ERROR_MESSAGE,
                 }
             ),
             500,
@@ -162,13 +165,14 @@ def checkpoint():
         if status == "isError":
             result["errorMessage"] = json.dumps([asdict(e) for e in response.errors])
         return jsonify(result)
-    except Exception as e:
+    except Exception:
+        app.logger.exception("checkpoint error")
         return jsonify(
             {
                 "success": False,
                 "status": "isError",
                 "verification": None,
-                "errorMessage": str(e) or "Invocation error, likely configuration",
+                "errorMessage": CHECKPOINT_ERROR_MESSAGE,
             }
         )
 

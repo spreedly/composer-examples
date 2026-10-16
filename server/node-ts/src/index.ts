@@ -51,6 +51,9 @@ const isApiKeyConfigured = (): boolean => {
   return Boolean(secretKey) && secretKey !== "UNSET_SECRET_KEY";
 };
 
+// Failures are logged server-side; the client only gets these generic messages
+const CHECKPOINT_ERROR_MESSAGE = "Checkpoint request failed";
+const EVENT_ERROR_MESSAGE = "Event request failed";
 const INVALID_JSON_BODY = "Invalid request: body must be valid JSON";
 const INVALID_CHECKPOINT_BODY = "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string";
 
@@ -146,15 +149,12 @@ const executeCheckpoint = async (
     }
   } catch (error) {
     // Handle any errors that occur during the checkpoint execution, usually configuration related
-    let errorMessage = "Invocation error, likely configuration";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    }
+    console.error("CHECKPOINT ERROR", error);
     return {
       success: false,
       status: "isError",
       verification: null,
-      errorMessage,
+      errorMessage: CHECKPOINT_ERROR_MESSAGE,
     };
   }
 };
@@ -202,7 +202,7 @@ app.post("/checkpoint", async (req: Request, res: Response) => {
     return res.status(500).json({
       success: false,
       status: "isError",
-      errorMessage: error instanceof Error ? error.message : "Error at /checkpoint",
+      errorMessage: CHECKPOINT_ERROR_MESSAGE,
     });
   }
 });
@@ -229,11 +229,8 @@ const sendServerEvent = async (
     return { success: true };
   } catch (error) {
     // Handle any errors that occur during the event execution, usually configuration related
-    let errorMessage = "Error sending event, likely configuration";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-    }
-    return { success: false, errorMessage };
+    console.error("SEND SERVER EVENT ERROR", error);
+    return { success: false, errorMessage: EVENT_ERROR_MESSAGE };
   }
 };
 
@@ -250,7 +247,7 @@ app.post("/event", async (req, res) => {
     // Any error that gets here is unexpected
     // Most event errors will be handled by sendServerEvent and get a 200 response
     console.error("SEND SERVER EVENT ERROR", error);
-    return res.status(500).json({ success: false, errorMessage: "Error at /event" });
+    return res.status(500).json({ success: false, errorMessage: EVENT_ERROR_MESSAGE });
   }
 });
 

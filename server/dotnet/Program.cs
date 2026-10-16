@@ -8,6 +8,8 @@ Env.Load();
 
 const string missingConfigMessage =
     "Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)";
+// Failures are logged server-side; the client only gets this generic message.
+const string checkpointErrorMessage = "Checkpoint request failed";
 const string invalidCheckpointBody =
     "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string";
 
@@ -78,7 +80,8 @@ app.MapPost("/checkpoint", async (HttpContext context) =>
     }
     catch (InvalidOperationException ex)
     {
-        return Results.Json(CheckpointError(null, ex.Message), jsonOptions, statusCode: 500);
+        app.Logger.LogError(ex, "client IP error");
+        return Results.Json(CheckpointError(null, checkpointErrorMessage), jsonOptions, statusCode: 500);
     }
 
     // Convert System.Text.Json JsonElement values to plain CLR objects; the SDK
@@ -135,10 +138,8 @@ app.MapPost("/checkpoint", async (HttpContext context) =>
     }
     catch (Exception ex)
     {
-        var message = string.IsNullOrWhiteSpace(ex.Message)
-            ? "Invocation error, likely configuration"
-            : ex.Message;
-        return Results.Json(CheckpointError(null, message), jsonOptions);
+        app.Logger.LogError(ex, "checkpoint error");
+        return Results.Json(CheckpointError(null, checkpointErrorMessage), jsonOptions);
     }
 });
 
