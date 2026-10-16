@@ -28,6 +28,8 @@ import java.util.Map;
 public final class SidecarApp {
     private static final String MISSING_CONFIG_MESSAGE =
         "Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)";
+    // Failures are logged server-side; the client only gets this generic message.
+    private static final String CHECKPOINT_ERROR_MESSAGE = "Checkpoint request failed";
     private static final String INVALID_CHECKPOINT_BODY =
         "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string";
     private static final Gson gson = new GsonBuilder().create();
@@ -98,7 +100,8 @@ public final class SidecarApp {
         try {
             ip = requestIp(exchange);
         } catch (IllegalStateException e) {
-            sendJson(exchange, 500, checkpointError(null, e.getMessage()));
+            System.err.println("client IP error: " + e.getMessage());
+            sendJson(exchange, 500, checkpointError(null, CHECKPOINT_ERROR_MESSAGE));
             return;
         }
 
@@ -138,10 +141,9 @@ public final class SidecarApp {
             }
             sendJson(exchange, 200, result);
         } catch (Exception e) {
-            String message = e.getMessage() != null && !e.getMessage().isEmpty()
-                ? e.getMessage()
-                : "Invocation error, likely configuration";
-            sendJson(exchange, 200, checkpointError(null, message));
+            System.err.println("checkpoint error:");
+            e.printStackTrace();
+            sendJson(exchange, 200, checkpointError(null, CHECKPOINT_ERROR_MESSAGE));
         }
     }
 

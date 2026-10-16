@@ -47,7 +47,9 @@ const SDK_META = [
 
 const MISSING_CONFIG_MESSAGE =
     'Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)';
-const INVALID_CHECKPOINT_BODY = 'Invalid checkpoint request: body must be JSON with a non-empty checkpointName string';
+// Failures are logged server-side; the client only gets this generic message.
+const CHECKPOINT_ERROR_MESSAGE = 'Checkpoint request failed';
+const INVALID_CHECKPOINT_BODY ='Invalid checkpoint request: body must be JSON with a non-empty checkpointName string';
 
 function is_api_key_configured(): bool
 {
@@ -148,13 +150,12 @@ if (php_sapi_name() === 'cli-server') {
         try {
             $ip = request_ip();
         } catch (Throwable $e) {
+            error_log('client IP error: ' . $e);
             json_response([
                 'success' => false,
                 'status' => 'isError',
                 'verification' => null,
-                'errorMessage' => $e->getMessage() !== ''
-                    ? $e->getMessage()
-                    : 'Cannot derive client IP',
+                'errorMessage' => CHECKPOINT_ERROR_MESSAGE,
             ], 500);
             return;
         }
@@ -204,13 +205,12 @@ if (php_sapi_name() === 'cli-server') {
 
             json_response($result);
         } catch (Throwable $e) {
+            error_log('checkpoint error: ' . $e);
             json_response([
                 'success' => false,
                 'status' => 'isError',
                 'verification' => null,
-                'errorMessage' => $e->getMessage() !== ''
-                    ? $e->getMessage()
-                    : 'Invocation error, likely configuration',
+                'errorMessage' => CHECKPOINT_ERROR_MESSAGE,
             ]);
         }
         return;

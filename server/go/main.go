@@ -21,6 +21,8 @@ var sdkMeta = map[string]string{
 }
 
 const missingConfigMessage = "Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)"
+// Failures are logged server-side; the client only gets this generic message.
+const checkpointErrorMessage = "Checkpoint request failed"
 const invalidCheckpointBody = "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string"
 
 func envOr(primary, fallback string) string {
@@ -130,11 +132,12 @@ func checkpointHandler(client *composer.Composer) http.HandlerFunc {
 
 		ip, err := requestIP(r)
 		if err != nil {
+			log.Printf("client IP error: %v", err)
 			writeJSON(w, http.StatusInternalServerError, checkpointSidecarResponse{
 				Success:      false,
 				Status:       "isError",
 				Verification: nil,
-				ErrorMessage: err.Error(),
+				ErrorMessage: checkpointErrorMessage,
 			})
 			return
 		}
@@ -158,11 +161,12 @@ func checkpointHandler(client *composer.Composer) http.HandlerFunc {
 		})
 
 		if err != nil {
+			log.Printf("checkpoint error: %v", err)
 			writeJSON(w, http.StatusOK, checkpointSidecarResponse{
 				Success:      false,
 				Status:       "isError",
 				Verification: nil,
-				ErrorMessage: err.Error(),
+				ErrorMessage: checkpointErrorMessage,
 			})
 			return
 		}

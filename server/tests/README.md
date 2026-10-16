@@ -29,4 +29,4 @@ means something failed.
 |------|---------|
 | `fake-composer-api.mjs` | Stands in for the Composer API. Records every request and answers APPROVED so the SDKs don't poll. Serves recordings on `/__received`. |
 | `docker-compose.test.yml` | Overlay that points each sidecar's `DODGEBALL_API_URL` at the fake API and supplies a throwaway key. |
-| `check-ip-derivation.mjs` | Asserts each sidecar ignores a spoofed `X-Forwarded-For` and `body.ip` by default, then recreates them with `TRUSTED_PROXY_COUNT=1` and asserts they take the rightmost hop. Also asserts a malformed body and a missing `checkpointName` return 400 without calling Composer. |
+| `check-ip-derivation.mjs` | Asserts each sidecar ignores a spoofed `X-Forwarded-For` and `body.ip` by default, then recreates them with `TRUSTED_PROXY_COUNT=1` and asserts they take the rightmost hop. Also asserts a malformed body and a missing `checkpointName` return 400 without calling Composer, and that a failed SDK call (200) and an invalid `TRUSTED_PROXY_COUNT` (500) return the generic `errorMessage` instead of the exception text. |
