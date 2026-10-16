@@ -13,10 +13,16 @@
 // Then TRUSTED_PROXY_COUNT=1, one probe per sidecar: X-Forwarded-For is
 // "<spoofed>, <proxy-appended>" plus body.ip. The sidecar must send the proxy-appended hop.
 //
+// Then TRUSTED_PROXY_COUNT=abc, one probe per sidecar: the sidecar can't derive an IP, so it
+// must return 500 with the generic errorMessage, not the exception text.
+//
 // Input validation, two probes per sidecar:
 //   1. a body that is not JSON
 //   2. valid JSON without checkpointName
 // Both must return 400 and must not reach Composer.
+//
+// SDK error, one probe per sidecar: no sessionId or sourceToken, so the SDK throws. The
+// sidecar must return 200 with the generic errorMessage.
 //
 // Usage (from `server/`):
 //   docker compose -f docker-compose.yml -f tests/docker-compose.test.yml up -d --build
@@ -40,6 +46,7 @@ const SPOOFED_HEADER_IP = "9.9.9.9";
 const SPOOFED_BODY_IP = "8.8.8.8";
 const PROXY_APPENDED_IP = "203.0.113.50";
 const HARDCODED_FALLBACK = "76.90.54.224";
+const GENERIC_ERROR = "Checkpoint request failed";
 
 const BOOT_TIMEOUT_MS = 180_000;
 const COMPOSE_ARGS = ["compose", "-f", "docker-compose.yml", "-f", "tests/docker-compose.test.yml"];
@@ -171,6 +178,39 @@ const probeEachValidation = async (probeName, body) => {
   return results;
 };
 
+const probeGenericError = async (sidecar, body, expectedStatus) => {
+  let status = 0;
+  let errorMessage;
+  try {
+    const response = await fetch(`http://localhost:${sidecar.port}/checkpoint`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    status = response.status;
+    errorMessage = (await response.json()).errorMessage;
+  } catch {
+    return { ok: false, derivedIp: "-", reason: "request failed or body was not JSON" };
+  }
+  if (status !== expectedStatus) {
+    return { ok: false, derivedIp: "-", reason: `expected ${expectedStatus}, got ${status}` };
+  }
+  if (errorMessage !== GENERIC_ERROR) return { ok: false, derivedIp: "-", reason: `errorMessage was ${JSON.stringify(errorMessage)}` };
+  return { ok: true, derivedIp: "-", reason: `returned the generic message with ${status}` };
+};
+
+const probeEachGenericError = async (probeName, body, expectedStatus) => {
+  const results = [];
+  for (const sidecar of SIDECARS) {
+    if (!(await waitForHealth(sidecar))) {
+      results.push({ sidecar: sidecar.name, probe: "startup", ok: false, derivedIp: "-", reason: "never became healthy" });
+      continue;
+    }
+    results.push({ sidecar: sidecar.name, probe: probeName, ...(await probeGenericError(sidecar, body, expectedStatus)) });
+  }
+  return results;
+};
+
 const probeEach = async (probeName, options) => {
   const results = [];
   for (const sidecar of SIDECARS) {
@@ -189,6 +229,8 @@ const run = async () => {
   results.push(
     ...(await probeEachValidation("malformed body", "not-json")),
     ...(await probeEachValidation("missing name", "{}")),
+    // No sessionId or sourceToken: the SDK throws, so this reaches the checkpoint call's catch.
+    ...(await probeEachGenericError("sdk error", { checkpointName: "HARNESS_ERROR_CHECK" }, 200)),
   );
 
   results.push(
@@ -212,6 +254,14 @@ const run = async () => {
         forwardedFor: `${SPOOFED_HEADER_IP}, ${PROXY_APPENDED_IP}`,
         verdict: verdictForHop,
       })),
+    );
+    setTrustedProxyCount("abc");
+    results.push(
+      ...(await probeEachGenericError(
+        "invalid hops",
+        { checkpointName: "HARNESS_ERROR_CHECK", sessionId: "harness-session" },
+        500,
+      )),
     );
   } finally {
     setTrustedProxyCount(0);
