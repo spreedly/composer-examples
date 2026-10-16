@@ -23,7 +23,7 @@ var sdkMeta = map[string]string{
 const missingConfigMessage = "Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)"
 // Failures are logged server-side; the client only gets this generic message.
 const checkpointErrorMessage = "Checkpoint request failed"
-const invalidCheckpointBody ="Invalid checkpoint request: body must be JSON with a non-empty checkpointName string"
+const invalidCheckpointBody = "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string"
 
 func envOr(primary, fallback string) string {
 	if value := os.Getenv(primary); value != "" {
