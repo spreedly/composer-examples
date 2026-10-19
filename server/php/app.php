@@ -49,7 +49,7 @@ const MISSING_CONFIG_MESSAGE =
     'Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)';
 // Failures are logged server-side; the client only gets this generic message.
 const CHECKPOINT_ERROR_MESSAGE = 'Checkpoint request failed';
-const INVALID_CHECKPOINT_BODY ='Invalid checkpoint request: body must be JSON with a non-empty checkpointName string';
+const INVALID_CHECKPOINT_BODY = 'Invalid checkpoint request: body must be JSON with a non-empty checkpointName string';
 
 function is_api_key_configured(): bool
 {
