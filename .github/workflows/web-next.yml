@@ -6,6 +6,9 @@ on:
       - "client/web-next/**"
       - ".github/workflows/web-next.yml"
 
+permissions:
+  contents: read
+
 jobs:
   audit-and-build:
     runs-on: ubuntu-latest
@@ -20,5 +23,5 @@ jobs:
           cache: npm
           cache-dependency-path: client/web-next/package-lock.json
       - run: npm ci
-      - run: npm audit --audit-level=high
+      - run: npm audit --omit=dev --audit-level=high
       - run: npm run build
