@@ -138,6 +138,8 @@ Each sidecar exposes a minimal HTTP API around one checkpoint call:
 
 `status` is one of `isAllowed`, `isRunning`, `isDenied`, or `isError`.
 
+On `isError`, `errorMessage` holds the errors the Composer API returned. If the sidecar itself fails (for example, the SDK call throws or the client IP can't be derived), `errorMessage` is the fixed string `Checkpoint request failed` and the details go to the server log.
+
 ## Quick smoke test
 
 ```bash
@@ -159,6 +161,9 @@ You do **not** need to run our example server in production. Typical integration
    with the session, user, device IP, and transaction payload from the request.
 4. Branch on `isAllowed` / `isRunning` / `isDenied` and return the verification
    to your frontend when additional steps are required.
+5. When something fails, log the exception on the server and return a generic
+   message. Exception text can describe your configuration and internals, so
+   don't send it to the client.
 
 The `node-ts`, `python`, `php`, `ruby`, `go`, `java`, and `dotnet` folders show that flow in Express, Flask,
 PHP's built-in server, Sinatra, Go's `net/http` package, a minimal Java HTTP server, and ASP.NET minimal APIs.

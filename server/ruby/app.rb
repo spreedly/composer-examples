@@ -33,6 +33,8 @@ SDK_META = {
 
 MISSING_CONFIG_MESSAGE =
   'Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)'
+# Failures are logged server-side; the client only gets this generic message.
+CHECKPOINT_ERROR_MESSAGE = 'Checkpoint request failed'
 INVALID_CHECKPOINT_BODY = 'Invalid checkpoint request: body must be JSON with a non-empty checkpointName string'
 
 def api_key_configured?
@@ -123,11 +125,12 @@ post '/checkpoint' do
   begin
     ip = request_ip
   rescue StandardError => e
+    warn "client IP error: #{e.message}"
     halt 500, {
       success: false,
       status: 'isError',
       verification: nil,
-      errorMessage: e.message
+      errorMessage: CHECKPOINT_ERROR_MESSAGE
     }.to_json
   end
 
@@ -164,11 +167,12 @@ post '/checkpoint' do
     end
     result.to_json
   rescue StandardError => e
+    warn "checkpoint error: #{e.full_message}"
     {
       success: false,
       status: 'isError',
       verification: nil,
-      errorMessage: e.message.empty? ? 'Invocation error, likely configuration' : e.message
+      errorMessage: CHECKPOINT_ERROR_MESSAGE
     }.to_json
   end
 end
