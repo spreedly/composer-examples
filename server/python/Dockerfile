@@ -7,7 +7,7 @@
 # Once the SDK is published, delete the SDK COPY below and replace the editable
 # install in requirements.txt with a normal pinned dependency.
 
-FROM python:3.12-slim
+FROM python:3.14-slim
 WORKDIR /app
 # requirements.txt installs the SDK from "../../../composer-sdk-server-python".
 # Inside the image /app/../../../ collapses to /, so place the SDK source at
