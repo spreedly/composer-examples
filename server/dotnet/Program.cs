@@ -16,7 +16,8 @@ const string invalidCheckpointBody =
 var sdkMeta = new SdkMeta("dotnet", "Spreedly.ComposerSdk.Server", "1.0.0");
 
 var port = EnvOrDefault("PORT", "3026");
-Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://0.0.0.0:{port}");
+var host = EnvOrDefault("HOST", "127.0.0.1");
+Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://{host}:{port}");
 
 var secretKey = EnvOr("DODGEBALL_SECRET_KEY", "SPREEDLY_SECRET_KEY");
 if (!IsApiKeyConfigured(secretKey))

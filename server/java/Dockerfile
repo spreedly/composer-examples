@@ -31,5 +31,6 @@ COPY --from=build /app/target/java-sidecar-1.0.0.jar /app/sidecar.jar
 RUN useradd --uid 10001 --no-create-home sidecar
 USER sidecar
 ENV PORT=3025
+ENV HOST=0.0.0.0
 EXPOSE 3025
 CMD ["java", "-jar", "/app/sidecar.jar"]

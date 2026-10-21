@@ -16,7 +16,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0
 WORKDIR /app
 COPY --from=build /out .
 ENV PORT=3026
-ENV ASPNETCORE_URLS=http://0.0.0.0:3026
+ENV HOST=0.0.0.0
 EXPOSE 3026
 USER $APP_UID
 ENTRYPOINT ["dotnet", "Sidecar.dll"]

@@ -22,6 +22,7 @@ FROM gcr.io/distroless/static-debian12:nonroot
 WORKDIR /app
 COPY --from=build --chown=nonroot:nonroot /app/sidecar /app/sidecar
 ENV PORT=3024
+ENV HOST=0.0.0.0
 EXPOSE 3024
 USER nonroot
 ENTRYPOINT ["/app/sidecar"]

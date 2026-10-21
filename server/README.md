@@ -32,6 +32,8 @@ DODGEBALL_SECRET_KEY=your_secret_key
 
 `SPREEDLY_API_URL` and `SPREEDLY_SECRET_KEY` are also accepted when the `DODGEBALL_*` names are unset.
 
+The servers listen on `127.0.0.1`, so only this machine can reach them. Set `HOST=0.0.0.0` to accept connections from other machines, for example in a container or behind a load balancer. The Docker images already set it. For PHP, change the address in the `php -S` command.
+
 ## Run locally
 
 ### Node (TypeScript)
@@ -60,7 +62,7 @@ Requires PHP 8.2+.
 ```bash
 cd server/php
 composer install
-php -S 0.0.0.0:3022 -t . app.php
+php -S 127.0.0.1:3022 -t . app.php
 # http://localhost:3022
 ```
 

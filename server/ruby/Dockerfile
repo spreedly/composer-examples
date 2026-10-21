@@ -22,5 +22,6 @@ COPY app.rb ./
 RUN useradd --uid 10001 --create-home sidecar
 USER sidecar
 ENV PORT=3023
+ENV HOST=0.0.0.0
 EXPOSE 3023
 CMD ["bundle", "exec", "ruby", "app.rb"]

@@ -44,6 +44,7 @@ public final class SidecarApp {
 
     public static void main(String[] args) throws Exception {
         String port = envOrDefault("PORT", "3025");
+        String host = envOrDefault("HOST", "127.0.0.1");
         String secretKey = envOr("DODGEBALL_SECRET_KEY", "SPREEDLY_SECRET_KEY");
         if (!isApiKeyConfigured(secretKey)) {
             System.out.println("warning: " + MISSING_CONFIG_MESSAGE);
@@ -51,7 +52,7 @@ public final class SidecarApp {
 
         Composer composer = buildComposer(secretKey);
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(port)), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(host, Integer.parseInt(port)), 0);
         server.createContext("/healthz", exchange -> {
             if (!"GET".equals(exchange.getRequestMethod())) {
                 sendText(exchange, 405, "Method not allowed");
