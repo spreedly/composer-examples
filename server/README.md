@@ -172,7 +172,7 @@ PHP's built-in server, Sinatra, Go's `net/http` package, a minimal Java HTTP ser
 
 Call `checkpoint` from a route that already authenticates the user, such as `POST /api/orders`. Do not expose an unauthenticated `/checkpoint`.
 
-The node example allows any origin so the browser clients in `client/` can call `http://localhost:3020`. If a browser will call your API, set `Access-Control-Allow-Origin` to your frontend origin.
+The node example allows browser calls from `http://localhost:3000`, the origin of the web-next client in `client/`. If you run web-next on another port or open it at `http://127.0.0.1:3000`, set `CORS_ORIGIN` to match. If a browser will call your API, set `Access-Control-Allow-Origin` to your frontend origin.
 
 ## SDK repositories
 
