@@ -41,7 +41,7 @@ Start that sidecar before using this UI. Only node-ts is set up for browser call
 1. Go to this directory: `cd ./client/web-next`
 1. Add a `.env` file based on `.env.example` (see **Configuration** above).
 1. Run `npm install` to install the dependencies.
-1. Run `npm run dev` to start the development server. If you want to use a specific port, you can run `npm run dev -- --port <port>`.
+1. Run `npm run dev` to start the development server. If you want to use a specific port, you can run `npm run dev -- --port <port>`, and set `CORS_ORIGIN=http://localhost:<port>` in `server/node-ts/.env` so the sidecar allows browser calls from it.
 1. Visit `http://localhost:<port>` in your browser, you will see an error in the same terminal where you ran `npm run dev` - it will show simple information about Trust Client SDK initialization, and let you get a source token on demand.
 
 ## What is special about Next JS and Composer?
