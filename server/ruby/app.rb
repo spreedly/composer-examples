@@ -7,7 +7,7 @@ require 'sinatra'
 require 'composer'
 
 set :port, ENV.fetch('PORT', '3023').to_i
-set :bind, '0.0.0.0'
+set :bind, ENV.fetch('HOST', '127.0.0.1')
 
 def env_or(primary, fallback)
   primary_value = ENV[primary].to_s

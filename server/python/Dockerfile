@@ -19,5 +19,6 @@ COPY app.py ./
 RUN useradd --uid 10001 --create-home sidecar
 USER sidecar
 ENV PORT=3021
+ENV HOST=0.0.0.0
 EXPOSE 3021
 CMD ["python", "app.py"]

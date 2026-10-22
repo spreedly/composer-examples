@@ -5,10 +5,10 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
-app.options("*", cors());
+app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:3000" }));
 
 const port = process.env.PORT || 3020;
+const host = process.env.HOST || "127.0.0.1";
 
 import { Composer, ComposerApiVersion, VERSION as sdkVersion } from "@spreedly/composer-sdk-server";
 import { ICheckpointOptions } from "@spreedly/composer-sdk-server/dist/types/types";
@@ -261,6 +261,6 @@ const jsonParseErrorHandler: ErrorRequestHandler = (err, _req, res, next) => {
 
 app.use(jsonParseErrorHandler);
 
-app.listen(port, () => {
+app.listen(Number(port), host, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

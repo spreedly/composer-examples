@@ -16,7 +16,7 @@ services:
       - ./tests/fake-composer-api.mjs:/app/fake-composer-api.mjs:ro
     command: node /app/fake-composer-api.mjs
     ports:
-      - "3099:3099"
+      - "127.0.0.1:3099:3099"
 
   node-sidecar:
     environment: &fake_api

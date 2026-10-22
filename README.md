@@ -53,7 +53,7 @@ Requires PHP 8.2+.
 ```bash
 cd server/php
 composer install
-php -S 0.0.0.0:3022 -t . app.php
+php -S 127.0.0.1:3022 -t . app.php
 # http://localhost:3022
 ```
 

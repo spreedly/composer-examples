@@ -35,6 +35,7 @@ RUN npm install --install-links
 COPY tsconfig.json ./
 COPY src ./src
 ENV PORT=3020
+ENV HOST=0.0.0.0
 EXPOSE 3020
 USER node
 CMD ["./node_modules/.bin/ts-node", "src/index.ts"]

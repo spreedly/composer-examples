@@ -32,6 +32,8 @@ DODGEBALL_SECRET_KEY=your_secret_key
 
 `SPREEDLY_API_URL` and `SPREEDLY_SECRET_KEY` are also accepted when the `DODGEBALL_*` names are unset.
 
+The servers listen on `127.0.0.1`, so only this machine can reach them. Set `HOST=0.0.0.0` to accept connections from other machines, for example in a container or behind a load balancer. The Docker images already set it. For PHP, change the address in the `php -S` command.
+
 ## Run locally
 
 ### Node (TypeScript)
@@ -60,7 +62,7 @@ Requires PHP 8.2+.
 ```bash
 cd server/php
 composer install
-php -S 0.0.0.0:3022 -t . app.php
+php -S 127.0.0.1:3022 -t . app.php
 # http://localhost:3022
 ```
 
@@ -170,7 +172,7 @@ PHP's built-in server, Sinatra, Go's `net/http` package, a minimal Java HTTP ser
 
 Call `checkpoint` from a route that already authenticates the user, such as `POST /api/orders`. Do not expose an unauthenticated `/checkpoint`.
 
-The node example allows any origin so the browser clients in `client/` can call `http://localhost:3020`. If a browser will call your API, set `Access-Control-Allow-Origin` to your frontend origin.
+The node example allows browser calls from `http://localhost:3000`, the origin of the web-next client in `client/`. If you run web-next on another port or open it at `http://127.0.0.1:3000`, set `CORS_ORIGIN` to match. If a browser will call your API, set `Access-Control-Allow-Origin` to your frontend origin.
 
 ## SDK repositories
 

@@ -68,6 +68,11 @@ func main() {
 		port = "3024"
 	}
 
+	host := os.Getenv("HOST")
+	if host == "" {
+		host = "127.0.0.1"
+	}
+
 	secretKey := envOr("DODGEBALL_SECRET_KEY", "SPREEDLY_SECRET_KEY")
 	if secretKey == "" {
 		secretKey = "UNSET_SECRET_KEY"
@@ -93,7 +98,7 @@ func main() {
 	http.HandleFunc("/checkpoint", checkpointHandler(client))
 
 	log.Printf("Server is running on http://localhost:%s", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(host+":"+port, nil))
 }
 
 func healthzHandler(w http.ResponseWriter, _ *http.Request) {

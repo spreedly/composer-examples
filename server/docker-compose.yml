@@ -13,7 +13,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-node
     ports:
-      - "3020:3020"
+      - "127.0.0.1:3020:3020"
     env_file:
       - path: ./node-ts/.env
         required: false
@@ -24,7 +24,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-python
     ports:
-      - "3021:3021"
+      - "127.0.0.1:3021:3021"
     env_file:
       - path: ./python/.env
         required: false
@@ -35,7 +35,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-php
     ports:
-      - "3022:3022"
+      - "127.0.0.1:3022:3022"
     env_file:
       - path: ./php/.env
         required: false
@@ -46,7 +46,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-ruby
     ports:
-      - "3023:3023"
+      - "127.0.0.1:3023:3023"
     env_file:
       - path: ./ruby/.env
         required: false
@@ -57,7 +57,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-go
     ports:
-      - "3024:3024"
+      - "127.0.0.1:3024:3024"
     env_file:
       - path: ./go/.env
         required: false
@@ -68,7 +68,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-java
     ports:
-      - "3025:3025"
+      - "127.0.0.1:3025:3025"
     env_file:
       - path: ./java/.env
         required: false
@@ -79,7 +79,7 @@ services:
       additional_contexts:
         sdk: ../../composer-sdk-server-dotnet
     ports:
-      - "3026:3026"
+      - "127.0.0.1:3026:3026"
     env_file:
       - path: ./dotnet/.env
         required: false
