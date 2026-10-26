@@ -25,7 +25,7 @@ export const ComposerProvider: React.FC<ComposerProviderProps> = ({ children, pu
   useEffect(() => {
     const initializeClientSdk = async () => {
       if (!publicApiKey) {
-        console.info("Skipping Trust Client SDK initialization because public API Key is not set");
+        console.info("Skipping Composer Client SDK initialization because public API Key is not set");
         setClientSdk(null);
         setSourceToken(null);
         setIsLoading(false);
@@ -33,7 +33,7 @@ export const ComposerProvider: React.FC<ComposerProviderProps> = ({ children, pu
       }
 
       if (!apiUrl) {
-        console.info("Skipping Trust Client SDK initialization because API URL is not set");
+        console.info("Skipping Composer Client SDK initialization because API URL is not set");
         setClientSdk(null);
         setSourceToken(null);
         setIsLoading(false);
@@ -51,7 +51,7 @@ export const ComposerProvider: React.FC<ComposerProviderProps> = ({ children, pu
         setClientSdk(clientInstance);
         setSourceToken(token);
       } catch (error) {
-        console.error("Error initializing Trust Client SDK", error);
+        console.error("Error initializing Composer Client SDK", error);
         setClientSdk(null);
         setSourceToken(null);
       } finally {

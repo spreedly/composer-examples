@@ -58,7 +58,7 @@ export const SubmitButton: FC = () => {
     const serverEventPayloadIsValid = currentCheckpointState.serverEventPayloadIsValid;
     const issues = [];
     if (!clientSdk) {
-      issues.push("Trust Client SDK not initialized");
+      issues.push("Composer Client SDK not initialized");
     }
     if (!sessionId) {
       issues.push("No session ID");
