@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@dodgeball/trust-sdk-client": "^0.0.38",
     "@faker-js/faker": "^10.6.0",
+    "@spreedly/composer-sdk-client": "^1.0.0",
     "next": "15.5.28",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

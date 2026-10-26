@@ -1,5 +1,4 @@
-import { Dodgeball } from "@dodgeball/trust-sdk-client";
-import { IVerification } from "@dodgeball/trust-sdk-client/dist/types/types";
+import { Composer, IVerification } from "@spreedly/composer-sdk-client";
 import { MessageColor } from "../contexts/CheckpointStateProvider";
 
 export interface IProcessServerEventApiParams {
@@ -33,7 +32,7 @@ const onSuccessSubmitEvent = (addMessage: (message: string, color: MessageColor)
 };
 
 export const sendServerEvent = async (
-  clientSdk: Dodgeball | null | undefined,
+  clientSdk: Composer | null | undefined,
   addMessage: (message: string, color: MessageColor) => void,
   apiParams: IProcessServerEventApiParams
 ) => {
@@ -106,7 +105,7 @@ const onCheckpointDenied = (
 };
 
 export const processCheckpoint = async (
-  clientSdk: Dodgeball | null | undefined,
+  clientSdk: Composer | null | undefined,
   addMessage: (message: string, color?: MessageColor) => void,
   apiParams: IProcessCheckpointApiParams,
   previousVerificationId: string | null = null

@@ -1,7 +1,7 @@
 # Next.js Example of how to use the Trust Client SDK
 
 This example demonstrates how to use the Trust Client SDK,
-[`@dodgeball/trust-sdk-client`](https://npmjs.com/package/@dodgeball/trust-sdk-client),
+[`@spreedly/composer-sdk-client`](https://www.npmjs.com/package/@spreedly/composer-sdk-client),
 in a Next.js application.
 
 ## Prerequisites
