@@ -5,7 +5,7 @@ import { envOr } from "./env";
 import "./globals.css";
 export const metadata: Metadata = {
   title: "Client/Next.js | Composer Examples",
-  description: "This example demonstrates how to use the Trust Client SDK with Next.js.",
+  description: "This example demonstrates how to use the Composer Client SDK with Next.js.",
 };
 
 export default function RootLayout({

@@ -20,7 +20,7 @@ You should use these examples along with the [official Spreedly documentation](h
 
 Once you have an account, login, visit the **Checkpoint Studio**, then create a new checkpoint called `PAYMENT`. Open the **Step Palette**, then drag and drop an *Allow* step into your checkpoint. Drag an arrow from the *PAYMENT* step to the *Allow* step to connect them. Then click the **Publish** button in the top-right of your screen.
 
-Fantastic, now you're ready to experiment with Composer! Follow the instructions for your preferred server language. While running the Trust Client SDK in the browser is optional, using it is highly recommended to gather device intelligence and enable progressive user-friction.
+Fantastic, now you're ready to experiment with Composer! Follow the instructions for your preferred server language. While running the Composer Client SDK in the browser is optional, using it is highly recommended to gather device intelligence and enable progressive user-friction.
 
 ## Server-Side Examples
 

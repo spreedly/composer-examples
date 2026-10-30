@@ -1,11 +1,11 @@
 "use client";
 
-import { Dodgeball, DodgeballApiVersion } from "@dodgeball/trust-sdk-client";
+import { Composer, ComposerApiVersion } from "@spreedly/composer-sdk-client";
 import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface ComposerContextState {
   sourceToken: string | null;
-  clientSdk: Dodgeball | null;
+  clientSdk: Composer | null;
   isLoading: boolean;
 }
 
@@ -20,12 +20,12 @@ interface ComposerProviderProps {
 export const ComposerProvider: React.FC<ComposerProviderProps> = ({ children, publicApiKey, apiUrl }) => {
   const [sourceToken, setSourceToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [clientSdk, setClientSdk] = useState<Dodgeball | null>(null);
+  const [clientSdk, setClientSdk] = useState<Composer | null>(null);
 
   useEffect(() => {
     const initializeClientSdk = async () => {
       if (!publicApiKey) {
-        console.info("Skipping Trust Client SDK initialization because public API Key is not set");
+        console.info("Skipping Composer Client SDK initialization because public API Key is not set");
         setClientSdk(null);
         setSourceToken(null);
         setIsLoading(false);
@@ -33,7 +33,7 @@ export const ComposerProvider: React.FC<ComposerProviderProps> = ({ children, pu
       }
 
       if (!apiUrl) {
-        console.info("Skipping Trust Client SDK initialization because API URL is not set");
+        console.info("Skipping Composer Client SDK initialization because API URL is not set");
         setClientSdk(null);
         setSourceToken(null);
         setIsLoading(false);
@@ -41,17 +41,17 @@ export const ComposerProvider: React.FC<ComposerProviderProps> = ({ children, pu
       }
 
       const clientConfig = {
-        apiVersion: DodgeballApiVersion.v1,
+        apiVersion: ComposerApiVersion.v1,
         apiUrl,
       };
 
       try {
-        const clientInstance = new Dodgeball(publicApiKey, clientConfig);
+        const clientInstance = new Composer(publicApiKey, clientConfig);
         const token = await clientInstance.getSourceToken();
         setClientSdk(clientInstance);
         setSourceToken(token);
       } catch (error) {
-        console.error("Error initializing Trust Client SDK", error);
+        console.error("Error initializing Composer Client SDK", error);
         setClientSdk(null);
         setSourceToken(null);
       } finally {

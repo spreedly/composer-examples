@@ -26,7 +26,7 @@ export interface IProcessCheckpointApiParams {
   // You can pass in a User ID here, or set it on the backend in order to label the user
   // with your own identifier
   userId?: string;
-  // (SET AUTOMATICALLY) Obtained from the Trust Client SDK, represents the device making the request.
+  // (SET AUTOMATICALLY) Obtained from the Composer Client SDK, represents the device making the request.
   // Source Tokens can only be used if they were recently generated as they expire
   sourceToken?: string;
   // (SET AUTOMATICALLY) The verification ID to use for the checkpoint
@@ -62,7 +62,7 @@ export interface IProcessServerEventApiParams {
   // You can pass in a User ID here, or set it on the backend in order to label the user
   // with your own identifier
   userId?: string;
-  // (SET AUTOMATICALLY) Obtained from the Trust Client SDK, represents the device making the request.
+  // (SET AUTOMATICALLY) Obtained from the Composer Client SDK, represents the device making the request.
   // Source Tokens can only be used if they were recently generated as they expire
   sourceToken?: string;
 }

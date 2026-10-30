@@ -9,7 +9,7 @@ export const StateViewer: FC = () => {
   const { clientSdk } = useComposerProvider();
   return (
     <div className="state-viewer">
-      <div>Trust Client SDK {clientSdk ? "initialized" : "not initialized"}</div>
+      <div>Composer Client SDK {clientSdk ? "initialized" : "not initialized"}</div>
       <div>Using API: {clientSdk ? "Yes" : "No"}</div>
       <div>Submit Button Action: {currentCheckpointState.submitButtonAction}</div>
       <div>Session ID: {currentCheckpointState.sessionId ?? "No session ID"}</div>

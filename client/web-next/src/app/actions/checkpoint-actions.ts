@@ -1,5 +1,4 @@
-import { Dodgeball } from "@dodgeball/trust-sdk-client";
-import { IVerification } from "@dodgeball/trust-sdk-client/dist/types/types";
+import { Composer, IVerification } from "@spreedly/composer-sdk-client";
 import { MessageColor } from "../contexts/CheckpointStateProvider";
 
 export interface IProcessServerEventApiParams {
@@ -14,7 +13,7 @@ export interface IProcessServerEventApiParams {
   // You can pass in a User ID here, or set it on the backend in order to label the user
   // with your own identifier
   userId?: string;
-  // (SET AUTOMATICALLY) Obtained from the Trust Client SDK, represents the device making the request.
+  // (SET AUTOMATICALLY) Obtained from the Composer Client SDK, represents the device making the request.
   // Source Tokens can only be used if they were recently generated as they expire
   sourceToken?: string;
 }
@@ -33,12 +32,12 @@ const onSuccessSubmitEvent = (addMessage: (message: string, color: MessageColor)
 };
 
 export const sendServerEvent = async (
-  clientSdk: Dodgeball | null | undefined,
+  clientSdk: Composer | null | undefined,
   addMessage: (message: string, color: MessageColor) => void,
   apiParams: IProcessServerEventApiParams
 ) => {
   if (!clientSdk) {
-    throw new Error("Trust Client SDK not initialized");
+    throw new Error("Composer Client SDK not initialized");
   }
   const sourceToken = await clientSdk.getSourceToken();
 
@@ -106,14 +105,14 @@ const onCheckpointDenied = (
 };
 
 export const processCheckpoint = async (
-  clientSdk: Dodgeball | null | undefined,
+  clientSdk: Composer | null | undefined,
   addMessage: (message: string, color?: MessageColor) => void,
   apiParams: IProcessCheckpointApiParams,
   previousVerificationId: string | null = null
 ) => {
   try {
     if (!clientSdk) {
-      throw new Error("Trust Client SDK not initialized");
+      throw new Error("Composer Client SDK not initialized");
     }
     const sourceToken = await clientSdk.getSourceToken();
 

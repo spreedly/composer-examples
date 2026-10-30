@@ -22,14 +22,14 @@ export const UserSelector: FC = () => {
     });
     if (newUserId && newSessionId) {
       clientSdk?.track(newSessionId, newUserId);
-      addMessage(`Trust Client SDK track called with sessionId: "${newSessionId}" and userId: "${newUserId}"`);
+      addMessage(`Composer Client SDK track called with sessionId: "${newSessionId}" and userId: "${newUserId}"`);
     }
     if (!newUserId) {
       clientSdk?.track(newSessionId);
-      addMessage(`Trust Client SDK track called with sessionId: "${newSessionId}"`);
+      addMessage(`Composer Client SDK track called with sessionId: "${newSessionId}"`);
     }
     if (!newSessionId) {
-      addMessage("No session ID provided - Trust Client SDK track not called");
+      addMessage("No session ID provided - Composer Client SDK track not called");
     }
   };
 
