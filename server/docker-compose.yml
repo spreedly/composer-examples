@@ -10,8 +10,6 @@ services:
   node-sidecar:
     build:
       context: ./node-ts
-      additional_contexts:
-        sdk: ../../composer-sdk-server-node
     ports:
       - "127.0.0.1:3020:3020"
     env_file:
