@@ -66,8 +66,6 @@ services:
   dotnet-sidecar:
     build:
       context: ./dotnet
-      additional_contexts:
-        sdk: ../../composer-sdk-server-dotnet
     ports:
       - "127.0.0.1:3026:3026"
     env_file:
