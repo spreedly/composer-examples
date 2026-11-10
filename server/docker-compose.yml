@@ -28,8 +28,6 @@ services:
   php-sidecar:
     build:
       context: ./php
-      additional_contexts:
-        sdk: ../../composer-sdk-server-php
     ports:
       - "127.0.0.1:3022:3022"
     env_file:

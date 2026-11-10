@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f34e30f31ad6906797008947824a4fe5",
+    "content-hash": "ca20f59f82f2f07f82b1ee060b26e23e",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -145,11 +145,17 @@
         },
         {
             "name": "spreedly/composer-sdk-server",
-            "version": "1.0.0",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spreedly/composer-sdk-server-php.git",
+                "reference": "33fe35771fd4ac4c563c385018c48286b997b31d"
+            },
             "dist": {
-                "type": "path",
-                "url": "../../../composer-sdk-server-php",
-                "reference": "98e93e35b4996442271de104774fa9970beb912d"
+                "type": "zip",
+                "url": "https://api.github.com/repos/spreedly/composer-sdk-server-php/zipball/33fe35771fd4ac4c563c385018c48286b997b31d",
+                "reference": "33fe35771fd4ac4c563c385018c48286b997b31d",
+                "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
@@ -166,19 +172,7 @@
                     "src/"
                 ]
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Spreedly\\ComposerSdk\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpunit"
-                ],
-                "test-coverage": [
-                    "XDEBUG_MODE=coverage phpunit --coverage-html coverage --coverage-text"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -196,9 +190,12 @@
                 "spreedly",
                 "verification"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/spreedly/composer-sdk-server-php/issues",
+                "source": "https://github.com/spreedly/composer-sdk-server-php/tree/v1.0.1"
+            },
+            "time": "2026-11-06T20:38:42+00:00",
+            "published-time": "2026-11-06T20:47:44+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -540,14 +537,12 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "spreedly/composer-sdk-server": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.2"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
