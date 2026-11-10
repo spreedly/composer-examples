@@ -37,8 +37,6 @@ services:
   ruby-sidecar:
     build:
       context: ./ruby
-      additional_contexts:
-        sdk: ../../composer-sdk-server-ruby
     ports:
       - "127.0.0.1:3023:3023"
     env_file:
