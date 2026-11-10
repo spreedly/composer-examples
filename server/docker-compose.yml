@@ -46,8 +46,6 @@ services:
   go-sidecar:
     build:
       context: ./go
-      additional_contexts:
-        sdk: ../../composer-sdk-server-go
     ports:
       - "127.0.0.1:3024:3024"
     env_file:
