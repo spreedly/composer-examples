@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__ . '/vendor/autoload.php';
 
+use Composer\InstalledVersions;
 use Dotenv\Dotenv;
 use Spreedly\ComposerSdk\CheckpointEvent;
 use Spreedly\ComposerSdk\CheckpointOptions;
@@ -39,11 +40,12 @@ $client = new Composer(
     $config,
 );
 
-const SDK_META = [
+// The SDK keeps its version constant private, so read the installed version from Composer.
+define('SDK_META', [
     'language' => 'php',
     'package' => 'spreedly/composer-sdk-server',
-    'version' => '1.0.0',
-];
+    'version' => ltrim((string) InstalledVersions::getPrettyVersion('spreedly/composer-sdk-server'), 'v'),
+]);
 
 const MISSING_CONFIG_MESSAGE =
     'Missing DODGEBALL_SECRET_KEY; copy .env.example to .env (SPREEDLY_SECRET_KEY also accepted)';
