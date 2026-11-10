@@ -2,9 +2,9 @@
 # Each sidecar's DODGEBALL_API_URL and DODGEBALL_SECRET_KEY come from its .env file.
 # Copy .env.example to .env in each folder you want to run and fill in your credentials.
 #
-# The "sdk" build contexts point at SDK repos that are not yet on public registries.
-# Paths are relative to this file (composer-examples/server). Once the SDKs are published,
-# drop the additional_contexts and the SDK COPY in each Dockerfile.
+# The Java SDK is not yet on Maven Central, so the Java sidecar builds it from a clone of
+# composer-sdk-server-java next to this repository (the "sdk" build context below).
+# Paths are relative to this file (composer-examples/server).
 
 services:
   node-sidecar:
