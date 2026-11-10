@@ -19,8 +19,6 @@ services:
   python-sidecar:
     build:
       context: ./python
-      additional_contexts:
-        sdk: ../../composer-sdk-server-python
     ports:
       - "127.0.0.1:3021:3021"
     env_file:
