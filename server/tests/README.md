@@ -17,8 +17,9 @@ docker compose -f docker-compose.yml -f tests/docker-compose.test.yml down
 No dependencies to install. The first run builds seven images and takes a while. The
 Java and .NET sidecars are the slowest to become healthy; the script waits for them.
 
-Building requires the sibling SDK repositories checked out next to this one, because
-`docker-compose.yml` builds each sidecar against its local SDK source.
+Building the Java sidecar requires a clone of `composer-sdk-server-java` next to this
+repository, because its SDK is not yet on Maven Central. The other sidecars install
+their SDK from the package registry.
 
 The script prints PASS/FAIL per probe and a final `n/n checks passed`. A non-zero exit
 means something failed.

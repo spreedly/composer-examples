@@ -13,7 +13,7 @@ const string checkpointErrorMessage = "Checkpoint request failed";
 const string invalidCheckpointBody =
     "Invalid checkpoint request: body must be JSON with a non-empty checkpointName string";
 
-var sdkMeta = new SdkMeta("dotnet", "Spreedly.ComposerSdk.Server", "1.0.0");
+var sdkMeta = new SdkMeta("dotnet", "Spreedly.ComposerSdk.Server", Constants.SdkVersion);
 
 var port = EnvOrDefault("PORT", "3026");
 var host = EnvOrDefault("HOST", "127.0.0.1");
