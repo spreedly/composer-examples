@@ -1,3 +1,3 @@
 flask>=3.0
 python-dotenv>=1.0
-spreedly-composer-sdk-server>=1.0.2,<2
+spreedly-composer-sdk-server>=1.0.3,<2
