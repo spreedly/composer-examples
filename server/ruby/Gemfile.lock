@@ -17,8 +17,8 @@ GEM
     nio4r (2.7.5)
     puma (7.2.1)
       nio4r (~> 2.0)
-    rack (3.2.8)
-    rack-protection (4.2.1)
+    rack (3.2.9)
+    rack-protection (4.2.2)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
@@ -27,16 +27,16 @@ GEM
       rack (>= 3.0.0)
     rackup (2.3.1)
       rack (>= 3)
-    sinatra (4.2.1)
+    sinatra (4.2.2)
       logger (>= 1.6.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
-      rack-protection (= 4.2.1)
+      rack-protection (= 4.2.2)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     spreedly-composer-sdk-server (1.0.1)
       faraday (~> 2.14, >= 2.14.3)
-    tilt (2.7.0)
+    tilt (2.9.0)
     uri (1.1.1)
 
 PLATFORMS
@@ -47,7 +47,7 @@ DEPENDENCIES
   dotenv (~> 3.0)
   puma (~> 7.2)
   rackup (~> 2.1)
-  sinatra (~> 4.0)
+  sinatra (~> 4.2)
   spreedly-composer-sdk-server (~> 1.0, >= 1.0.1)
 
 CHECKSUMS
@@ -61,13 +61,13 @@ CHECKSUMS
   net-http (0.9.1) sha256=25ba0b67c63e89df626ed8fac771d0ad24ad151a858af2cc8e6a716ca4336996
   nio4r (2.7.5) sha256=6c90168e48fb5f8e768419c93abb94ba2b892a1d0602cb06eef16d8b7df1dca1
   puma (7.2.1) sha256=d7bf0e9cabd532e0d401e142cd94e3ac531e993610e2d80e6fbf9c26961414b0
-  rack (3.2.8) sha256=1fecc85e463ebc7a2a945fff829ffcd549babeb1556384796fad946c28dc4ec7
-  rack-protection (4.2.1) sha256=cf6e2842df8c55f5e4d1a4be015e603e19e9bc3a7178bae58949ccbb58558bac
+  rack (3.2.9) sha256=8235c1d08f0c461bedcff4413bbeba888173e5b09e1332ae951c98f0ee460dcc
+  rack-protection (4.2.2) sha256=0e75764dae462c4041544452ce568bb1f1ced556b791cd32ac479d0781065a99
   rack-session (2.1.2) sha256=595434f8c0c3473ae7d7ac56ecda6cc6dfd9d37c0b2b5255330aa1576967ffe8
   rackup (2.3.1) sha256=6c79c26753778e90983761d677a48937ee3192b3ffef6bc963c0950f94688868
-  sinatra (4.2.1) sha256=b7aeb9b11d046b552972ade834f1f9be98b185fa8444480688e3627625377080
+  sinatra (4.2.2) sha256=3a0e63c600eb65d7ad6fa0d597a9533f2870d1862cc63ab7b0f7f0ad449ad42f
   spreedly-composer-sdk-server (1.0.1) sha256=b2b3e8f349182f166dabe8dd4d5bd467f34d7699b9aed400cfb3302792a48ca0
-  tilt (2.7.0) sha256=0d5b9ba69f6a36490c64b0eee9f6e9aad517e20dcc848800a06eb116f08c6ab3
+  tilt (2.9.0) sha256=da5735d0280bba96e9a91041bb14aee435ccad5c17b0fa519249ae543d9aa3a5
   uri (1.1.1) sha256=379fa58d27ffb1387eaada68c749d1426738bd0f654d812fcc07e7568f5c57c6
 
 BUNDLED WITH
