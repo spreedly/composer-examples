@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM php:8.2-cli-bookworm
+FROM php:8.6-cli-bookworm
 WORKDIR /app
 RUN apt-get update \
   && apt-get install -y --no-install-recommends git unzip \
